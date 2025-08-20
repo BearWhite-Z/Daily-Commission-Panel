@@ -4,9 +4,9 @@
 
     <!-- 基础颜色 -->
     <SolidColorBrush x:Key="BackgroundColor" Color="#121212"/>
-    <SolidColorBrush x:Key="TextColor" Color="#e0e0e0"/>
-    <SolidColorBrush x:Key="SecondaryTextColor" Color="#A0A0A0"/>
-    <SolidColorBrush x:Key="PlaceholderTextColor" Color="#777777"/>
+    <SolidColorBrush x:Key="TextColor" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="SecondaryTextColor" Color="#a0a0a0"/>
+    <SolidColorBrush x:Key="PlaceholderTextColor" Color="#707070"/>
     <SolidColorBrush x:Key="BorderColor" Color="#333333"/>
 
     <!-- 组件颜色 -->

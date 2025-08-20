@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="DOP每日委托面板"
         Background="#FFFFFF"
-        WindowStyle="None"
-        AllowsTransparency="True"
+        WindowStyle="SingleBorderWindow"
+        AllowsTransparency="False"
         WindowStartupLocation="CenterScreen"
         WindowState="Normal"
         SnapsToDevicePixels="True"
@@ -31,19 +31,16 @@
     <!-- 根容器 -->
     <Grid>
         <!-- 蓝色顶部区域 - 包含窗口控制按钮和标题栏 -->
-        <Border x:Name="Header" Height="90" VerticalAlignment="Top" Background="{DynamicResource HeaderBackgroundColor}" CornerRadius="15,15,0,0" MouseDown="Window_MouseDown" ClipToBounds="True">
+        <Border x:Name="Header" Height="90" VerticalAlignment="Top" Background="{DynamicResource HeaderBackgroundColor}" ClipToBounds="True">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 
-                <!-- 窗口控制按钮区域 -->
-                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,10,0" VerticalAlignment="Top">
-                    <Button x:Name="MinimizeBtn" Content="—" Width="30" Height="30" Background="Transparent" BorderThickness="0" Click="MinimizeBtn_Click" Foreground="{DynamicResource TextColor}" FontSize="16" FontFamily="Segoe UI Symbol" Padding="0" ToolTip="最小化"/>
-                    <Button x:Name="MaximizeBtn" Content="⤢" Width="30" Height="30" Background="Transparent" BorderThickness="0" Click="MaximizeBtn_Click" Foreground="{DynamicResource TextColor}" FontSize="12" FontFamily="Segoe UI Symbol" Padding="0" ToolTip="最大化"/>
-                    <Button x:Name="FullScreenBtn" Content="□" Width="30" Height="30" Background="Transparent" BorderThickness="0" Click="FullScreenBtn_Click" Foreground="{DynamicResource TextColor}" FontSize="14" FontFamily="Segoe UI Symbol" Padding="0" ToolTip="全屏"/>
-                    <Button x:Name="CloseBtn" Content="✕" Width="30" Height="30" Background="Transparent" BorderThickness="0" Click="CloseBtn_Click" Foreground="{DynamicResource TextColor}" FontSize="16" FontFamily="Segoe UI Symbol" Padding="0" ToolTip="关闭"/>
+                <!-- 窗口控制按钮区域 - 仅保留全屏按钮 -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top">
+                    <Button x:Name="FullScreenBtn" Content="□" Width="40" Height="40" Background="Transparent" BorderThickness="0" Click="FullScreenBtn_Click" Foreground="{DynamicResource TextColor}" FontSize="16" FontFamily="Segoe UI Symbol" Padding="0" ToolTip="全屏"/>
                 </StackPanel>
 
                 <!-- 左侧信息 -->
@@ -79,154 +76,153 @@
             </Grid>
         </Border>
 
-        <!-- 主内容区域 - 白色背景带底部圆角 -->
-        <Border CornerRadius="0,0,15,15" Background="#FFFFFF" ClipToBounds="True" Margin="0,90,0,30">
+        <!-- 主内容区域 - 使用主题背景色 -->
+        <Border Background="{DynamicResource PanelBackgroundColor}" ClipToBounds="True" Margin="0,90,0,30">
             <Grid>
                 <!-- 学生端页面 -->
-                <Grid x:Name="MainContent">
+                <Grid x:Name="StudentPage">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="300"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <!-- 左侧规则区域 -->
-                        <Border Grid.Column="0" Margin="20" Background="{DynamicResource PanelBackgroundColor}" CornerRadius="12" Padding="20" Width="280">
-                            <StackPanel>
-                                <TextBlock Text="自习守则" Style="{StaticResource TitleTextStyle}" Margin="0,0,0,20"/>
-                                <ListBox ItemsSource="{Binding Rules}" Background="Transparent" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding}" Margin="0,0,0,12" TextWrapping="Wrap" FontSize="16"/>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
+                    <Border Grid.Column="0" Margin="20" Background="{DynamicResource PanelBackgroundColor}" CornerRadius="12" Padding="20" Width="280">
+                        <StackPanel>
+                            <TextBlock Text="自习守则" Style="{StaticResource TitleTextStyle}" Margin="0,0,0,20"/>
+                            <ItemsControl ItemsSource="{Binding Rules}" Background="Transparent" BorderThickness="0">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" Margin="0,0,0,12" TextWrapping="Wrap" FontSize="16" Foreground="{DynamicResource TextColor}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
 
-                                <!-- 自定义图片区域 -->
-                                <Border Margin="0,20,0,0" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="10" Height="180">
-                                    <Grid Background="{DynamicResource ImagePlaceholderBackgroundColor}" VerticalAlignment="Stretch">
-                                        <Image x:Name="CustomImage" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"/>
-                                        <TextBlock x:Name="NoImageText" Text="暂无图片提示" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource PlaceholderTextColor}" FontStyle="Italic" FontSize="15"/>
-                                    </Grid>
-                                </Border>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- 右侧作业区域 -->
-                        <Border Grid.Column="1" Margin="10,20,20,20" Background="{DynamicResource PanelBackgroundColor}" CornerRadius="12" Padding="20">
-                            <StackPanel>
-                                <TextBlock Text="今日作业" Style="{StaticResource TitleTextStyle}" Margin="0,0,0,20"/>
-                                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                    <ItemsControl x:Name="HomeworkList" ItemsSource="{Binding HomeworkItems}">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel Orientation="Horizontal" ItemWidth="300" ItemHeight="Auto"/>
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border Style="{DynamicResource CardStyle}" Width="300" Height="Auto">
-                                                <StackPanel>
-                                                    <Border BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,2" Margin="0,0,0,15" Padding="0,15,0,0">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Icon}" FontSize="28" Margin="0,0,15,0"/>
-                                    <TextBlock Text="{Binding Subject}" FontSize="22" FontWeight="Bold" Foreground="{Binding SubjectColor}"/>
-                                </StackPanel>
+                            <!-- 自定义图片区域 -->
+                            <Border Margin="0,20,0,0" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="10" Height="180">
+                                <Grid Background="{DynamicResource ImagePlaceholderBackgroundColor}" VerticalAlignment="Stretch">
+                                    <Image x:Name="CustomImage" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"/>
+                                    <TextBlock x:Name="NoImageText" Text="暂无图片提示" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource PlaceholderTextColor}" FontStyle="Italic" FontSize="15"/>
+                                </Grid>
                             </Border>
-                                                    <TextBlock Text="{Binding Content}" FontSize="28" TextWrapping="Wrap"/>
-                                                </StackPanel>
-                                            </Border>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                                </ScrollViewer>
-                            </StackPanel>
-                        </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 右侧作业区域 -->
+                    <Border Grid.Column="1" Margin="10,20,20,20" Background="{DynamicResource PanelBackgroundColor}" CornerRadius="12" Padding="20">
+                        <StackPanel>
+                            <TextBlock Text="今日作业" Style="{StaticResource TitleTextStyle}" Margin="0,0,0,20"/>
+                            <ItemsControl x:Name="HomeworkList" ItemsSource="{Binding HomeworkItems}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="3"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Style="{DynamicResource CardStyle}" Margin="5" Height="Auto">
+                                            <StackPanel>
+                                                <Border BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,2" Margin="0,0,0,15" Padding="0,15,0,0">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding Icon}" FontSize="28" Margin="0,0,15,0" Foreground="{DynamicResource TextColor}"/>
+                                                        <TextBlock Text="{Binding Subject}" FontSize="22" FontWeight="Bold" Foreground="{Binding SubjectColor}"/>
+                                                    </StackPanel>
+                                                </Border>
+                                                <TextBlock Text="{Binding Content}" FontSize="28" TextWrapping="Wrap" Foreground="{DynamicResource TextColor}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
                 </Grid>
 
                 <!-- 教师端页面 -->
                 <Grid x:Name="TeacherPage" Visibility="Collapsed">
-                <Border Margin="10" Background="{DynamicResource PanelBackgroundColor}" CornerRadius="10" Padding="15">
-                <ScrollViewer>
-                    <StackPanel>
-                        <TextBlock Text="布置作业" FontSize="20" FontWeight="Bold"/>
-
-                        <!-- 科目选择 -->
-                        <StackPanel>
-                            <TextBlock Text="选择科目" FontSize="15" FontWeight="Bold" Margin="0,0,0,10"/>
-                            <ComboBox x:Name="SubjectComboBox" Width="300" Height="30" FontSize="15">
-                                <ComboBoxItem Content="语文"/>
-                                <ComboBoxItem Content="数学"/>
-                                <ComboBoxItem Content="英语"/>
-                                <ComboBoxItem Content="物理"/>
-                                <ComboBoxItem Content="化学"/>
-                                <ComboBoxItem Content="生物"/>
-                            </ComboBox>
-                        </StackPanel>
-
-                        <!-- 作业内容 -->
-                        <StackPanel>
-                            <TextBlock Text="作业内容" FontSize="15" FontWeight="Bold" Margin="0,0,0,10"/>
-                            <TextBox x:Name="HomeworkTextBox" Height="120" Width="500" FontSize="15" TextWrapping="Wrap" AcceptsReturn="True"/>
-                        </StackPanel>
-
-                        <!-- 操作按钮 -->
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                            <Button x:Name="SubmitBtn" Content="布置作业" Style="{DynamicResource ActionButtonStyle}" Click="SubmitBtn_Click"/>
-                            <Button x:Name="ClearBtn" Content="清空所有" Style="{DynamicResource ClearButtonStyle}" Click="ClearBtn_Click"/>
-                        </StackPanel>
-
-                        <!-- 图片上传区域 -->
-                        <Border Margin="0,10,0,0" Padding="15,0,0,0" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1,1,0,0">
+                    <Border Margin="10" Background="{DynamicResource PanelBackgroundColor}" CornerRadius="10" Padding="15">
+                        <ScrollViewer>
                             <StackPanel>
-                                <TextBlock Text="上传提示图片" FontSize="18" FontWeight="Bold" Margin="0,0,0,15"/>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                                    <Button x:Name="UploadImageBtn" Content="选择图片" Style="{DynamicResource ActionButtonStyle}" Click="UploadImageBtn_Click"/>
-                                    <Button x:Name="ClearImageBtn" Content="清除图片" Style="{DynamicResource ClearButtonStyle}" Click="ClearImageBtn_Click"/>
-                                </StackPanel>
-                                <TextBlock Text="上传的图片将显示在学生端左下角" FontSize="13" Margin="0,10,0,0" Foreground="{DynamicResource SecondaryTextColor}"/>
-                            </StackPanel>
+                                <TextBlock Text="布置作业" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource TextColor}"/>
 
-                        </Border>
-                    
-                        <!-- 导入导出按钮 -->
-                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                            <Button x:Name="ImportBtn" Content="导入作业" Style="{DynamicResource ImportButtonStyle}" Click="ImportBtn_Click"/>
-                            <Button x:Name="ExportBtn" Content="导出作业" Style="{DynamicResource ExportButtonStyle}" Click="ExportBtn_Click"/>
-                        </StackPanel>
-                        
-                        <!-- 已布置作业 -->
-                        <Border Margin="0,10,0,0" Padding="15,0,0,0" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1,1,0,0">
-                        <StackPanel>
-                            <TextBlock Text="已布置作业" FontSize="18" FontWeight="Bold" Margin="0,0,0,15"/>
-                            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <ItemsControl x:Name="HomeworkPreview" ItemsSource="{Binding HomeworkItems}">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel Orientation="Horizontal" ItemWidth="240"/>
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border Style="{DynamicResource CardStyle}" Width="240">
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                                                        <TextBlock Text="{Binding Icon}" FontSize="24" Margin="0,0,12,0"/>
-                                                        <TextBlock Text="{Binding Subject}" FontSize="18" FontWeight="Bold" Foreground="{Binding SubjectColor}"/>
-                                                    </StackPanel>
-                                                    <TextBlock Text="{Binding Content}" FontSize="25" TextWrapping="Wrap"/>
-                                                </StackPanel>
-                                            </Border>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </ScrollViewer>
-                        </StackPanel>
+                                <!-- 科目选择 -->
+                                <StackPanel>
+                                    <TextBlock Text="选择科目" FontSize="15" FontWeight="Bold" Margin="0,0,0,10" Foreground="{DynamicResource TextColor}"/>
+                                    <ComboBox x:Name="SubjectComboBox" Width="300" Height="30" FontSize="15">
+                                        <ComboBoxItem Content="语文"/>
+                                        <ComboBoxItem Content="数学"/>
+                                        <ComboBoxItem Content="英语"/>
+                                        <ComboBoxItem Content="物理"/>
+                                        <ComboBoxItem Content="化学"/>
+                                        <ComboBoxItem Content="生物"/>
+                                    </ComboBox>
+                                </StackPanel>
+
+                                <!-- 作业内容 -->
+                                <StackPanel>
+                                    <TextBlock Text="作业内容" FontSize="15" FontWeight="Bold" Margin="0,0,0,10" Foreground="{DynamicResource TextColor}"/>
+                                    <TextBox x:Name="HomeworkTextBox" Height="120" Width="500" FontSize="15" TextWrapping="Wrap" AcceptsReturn="True" Foreground="{DynamicResource TextColor}"/>
+                                </StackPanel>
+
+                                <!-- 操作按钮 -->
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                                    <Button x:Name="SubmitBtn" Content="布置作业" Style="{DynamicResource ActionButtonStyle}" Click="SubmitBtn_Click"/>
+                                    <Button x:Name="ClearBtn" Content="清空所有" Style="{DynamicResource ClearButtonStyle}" Click="ClearBtn_Click"/>
+                                </StackPanel>
+
+                                <!-- 图片上传区域 -->
+                                <Border Margin="0,10,0,0" Padding="15,0,0,0" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1,1,0,0">
+                                    <StackPanel>
+                                        <TextBlock Text="上传提示图片" FontSize="18" FontWeight="Bold" Margin="0,0,0,15" Foreground="{DynamicResource TextColor}"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                            <Button x:Name="UploadImageBtn" Content="选择图片" Style="{DynamicResource ActionButtonStyle}" Click="UploadImageBtn_Click"/>
+                                            <Button x:Name="ClearImageBtn" Content="清除图片" Style="{DynamicResource ClearButtonStyle}" Click="ClearImageBtn_Click"/>
+                                        </StackPanel>
+                                        <TextBlock Text="上传的图片将显示在学生端左下角" FontSize="13" Margin="0,10,0,0" Foreground="{DynamicResource SecondaryTextColor}"/>
+                                    </StackPanel>
+                                </Border>
+                            
+                                <!-- 导入导出按钮 -->
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <Button x:Name="ImportBtn" Content="导入作业" Style="{DynamicResource ImportButtonStyle}" Click="ImportBtn_Click"/>
+                                    <Button x:Name="ExportBtn" Content="导出作业" Style="{DynamicResource ExportButtonStyle}" Click="ExportBtn_Click"/>
+                                </StackPanel>
+                                  
+                                <!-- 已布置作业 -->
+                                <Border Margin="0,10,0,0" Padding="15,0,0,0" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1,1,0,0">
+                                    <StackPanel>
+                                        <TextBlock Text="已布置作业" FontSize="18" FontWeight="Bold" Margin="0,0,0,15" Foreground="{DynamicResource TextColor}"/>
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <ItemsControl x:Name="HomeworkPreview" ItemsSource="{Binding HomeworkItems}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Orientation="Horizontal" ItemWidth="240"/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border Style="{DynamicResource CardStyle}" Width="240">
+                                                            <StackPanel>
+                                                                <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                                                                    <TextBlock Text="{Binding Icon}" FontSize="24" Margin="0,0,12,0" Foreground="{DynamicResource TextColor}"/>
+                                                                    <TextBlock Text="{Binding Subject}" FontSize="18" FontWeight="Bold" Foreground="{Binding SubjectColor}"/>
+                                                                </StackPanel>
+                                                                <TextBlock Text="{Binding Content}" FontSize="25" TextWrapping="Wrap" Foreground="{DynamicResource TextColor}"/>
+                                                            </StackPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </ScrollViewer>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
                     </Border>
-                </StackPanel>
-            </ScrollViewer>
+                </Grid>
+            </Grid>
         </Border>
-        </Grid>
-        
+
         <!-- 底部状态栏 -->
         <Border Height="30" VerticalAlignment="Bottom" Background="{DynamicResource PanelBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,1,0,0">
             <Grid x:Name="Footer">

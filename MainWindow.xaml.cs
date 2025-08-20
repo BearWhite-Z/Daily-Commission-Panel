@@ -95,41 +95,8 @@ namespace DailyOrderPanel
             StudentBtn.Background = new SolidColorBrush(Color.FromArgb(51, 255, 255, 255));
         }
 
-        // 窗口拖动功能
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
-        }
-
-        // 最小化窗口
-        private void MinimizeBtn_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
-        // 最大化/还原窗口
-        private void MaximizeBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (WindowState == WindowState.Normal)
-            {
-                WindowState = WindowState.Maximized;
-                MaximizeBtn.Content = "⤢";
-            }
-            else
-            {
-                WindowState = WindowState.Normal;
-                MaximizeBtn.Content = "⤢";
-            }
-        }
-
-        // 关闭窗口
-        private void CloseBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        // 注意：最小化、最大化和关闭按钮已从UI中移除
+        // 仅保留全屏功能
 
         // 全屏切换
         private void FullScreenBtn_Click(object sender, RoutedEventArgs e)
