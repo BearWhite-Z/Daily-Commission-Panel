@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ProjectGuid>{8A5E4D1F-7C6D-4F2B-A7D3-9E7B9C2A1F3E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <!-- 暂时移除图标设置，解决路径不存在问题 -->
+    <!-- <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon> -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+
+
+<!-- ApplicationDefinition 已移除，由 UseWPF=true 自动处理 -->
+
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+
+  </ItemGroup>
+
+</Project>
