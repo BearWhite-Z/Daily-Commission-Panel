@@ -2,13 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:System.Windows.Media;assembly=PresentationCore">
 
-    <!-- 阴影效果 - 重复定义已移至文件结尾 -->
-
-
-
-
-
-
+    <!-- 阴影效果 -->
+    <DropShadowEffect x:Key="ButtonShadow" BlurRadius="6" ShadowDepth="2" Color="#00000015"/>
+    <DropShadowEffect x:Key="CardShadow" BlurRadius="8" ShadowDepth="3" Color="#00000010"/>
 
     <!-- 基础颜色 -->
     <SolidColorBrush x:Key="BackgroundColor" Color="#f5f5f5"/>
@@ -21,8 +17,8 @@
     <SolidColorBrush x:Key="HeaderBackgroundColor" Color="#3498db"/>
     <SolidColorBrush x:Key="PanelBackgroundColor" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="CardBackgroundColor" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="TimerBackgroundColor" Color="#FFFFFF20"/>
-    <SolidColorBrush x:Key="TimerLabelColor" Color="#FFFFFFE0"/>
+    <SolidColorBrush x:Key="TimerBackgroundColor" Color="#FFFFFF40"/>
+    <SolidColorBrush x:Key="TimerLabelColor" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="ImagePlaceholderBackgroundColor" Color="#F2F3F5"/>
     <SolidColorBrush x:Key="AccentColor" Color="#3498db"/>
     <SolidColorBrush x:Key="CardShadowColor" Color="#00000010"/>
@@ -209,10 +205,6 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
-    <!-- 阴影效果 -->
-    <DropShadowEffect x:Key="ButtonShadow" BlurRadius="6" ShadowDepth="2" Color="#00000015"/>
-    <DropShadowEffect x:Key="CardShadow" BlurRadius="8" ShadowDepth="3" Color="#00000010"/>
 
     <!-- 卡片样式 -->
     <Style TargetType="Border" x:Key="CardStyle">

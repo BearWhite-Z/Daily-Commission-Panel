@@ -15,7 +15,7 @@
         RenderOptions.BitmapScalingMode="HighQuality"
         RenderOptions.ClearTypeHint="Enabled"
         TextOptions.TextFormattingMode="Display"
-        TextOptions.TextRenderingMode="ClearType">
+        TextOptions.TextRenderingMode="ClearType" d:DesignWidth="913.054">
     <Window.Resources>
         <Style x:Key="TitleTextStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="24"/>
@@ -31,53 +31,60 @@
     <!-- 根容器 -->
     <Grid>
         <!-- 蓝色顶部区域 - 包含窗口控制按钮和标题栏 -->
-        <Border x:Name="Header" Height="90" VerticalAlignment="Top" Background="{DynamicResource HeaderBackgroundColor}" ClipToBounds="True">
+        <Border x:Name="Header" Height="120" VerticalAlignment="Top" Background="#FF5E96D8" ClipToBounds="True">
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <!-- 窗口控制按钮区域 - 仅保留全屏按钮 -->
-                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top">
+                <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,0,0">
                     <Button x:Name="FullScreenBtn" Content="□" Width="40" Height="40" Background="Transparent" BorderThickness="0" Click="FullScreenBtn_Click" Foreground="{DynamicResource TextColor}" FontSize="16" FontFamily="Segoe UI Symbol" Padding="0" ToolTip="全屏"/>
                 </StackPanel>
 
                 <!-- 左侧信息 -->
-                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="30,40,0,0" VerticalAlignment="Top">
+                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="30,0,20,0">
                     <TextBlock Text="现在是自习时间" FontSize="20" Foreground="White"/>
                     <TextBlock Text="🤫" FontSize="28"/>
+                </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
+                <!-- 时间显示区域 -->
+                <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <!-- 当前时间 -->
-                        <Border Background="{DynamicResource TimerBackgroundColor}" CornerRadius="8" Padding="15,10,15,10">
+                        <Border Background="#FF7EABE0" CornerRadius="8" Padding="15,10,15,10" MinWidth="140" Margin="0,0,15,0">
                             <StackPanel>
                                 <TextBlock Text="当前时间" FontSize="14" Foreground="{DynamicResource TimerLabelColor}" HorizontalAlignment="Center"/>
-                                <TextBlock x:Name="CurrentTimeText" FontSize="22" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Text="{Binding CurrentTime}"/>
+                                <TextBlock x:Name="CurrentTimeText" FontSize="22" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Text="{Binding CurrentTime}" MinWidth="110"/>
                             </StackPanel>
                         </Border>
 
                         <!-- 剩余时间 -->
-                        <Border Background="{DynamicResource TimerBackgroundColor}" CornerRadius="8" Padding="15,10,15,10">
+                        <Border CornerRadius="8" Padding="15,10,15,10" MinWidth="140" Background="#FF7EABE0">
                             <StackPanel>
                                 <TextBlock Text="剩余时间" FontSize="14" Foreground="{DynamicResource TimerLabelColor}" HorizontalAlignment="Center"/>
-                                <TextBlock x:Name="CountdownText" FontSize="22" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Text="{Binding Countdown}"/>
+                                <TextBlock x:Name="CountdownText" FontSize="22" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Text="{Binding Countdown}" MinWidth="110"/>
                             </StackPanel>
                         </Border>
                     </StackPanel>
-                </StackPanel>
+                </Grid>
 
                 <!-- 右侧按钮 -->
-                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,40,30,0" VerticalAlignment="Top">
-                    <Button x:Name="StudentBtn" Style="{DynamicResource NavButtonStyle}" Click="StudentBtn_Click">学生端</Button>
-                    <Button x:Name="TeacherBtn" Style="{DynamicResource NavButtonStyle}" Click="TeacherBtn_Click">教师端</Button>
-                    <Button x:Name="ThemeToggle" Style="{DynamicResource NavButtonStyle}" Click="ThemeToggle_Click">切换主题</Button>
+                <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,30,0">
+                    <Button x:Name="StudentBtn" Style="{DynamicResource NavButtonStyle}" Click="StudentBtn_Click" Background="#FF7EABE0" Content="学生端"/>
+                    <Button x:Name="TeacherBtn" Style="{DynamicResource NavButtonStyle}" Click="TeacherBtn_Click" Background="#FF7EABE0" Content="教师端"/>
+                    <Button x:Name="ThemeToggle" Style="{DynamicResource NavButtonStyle}" Click="ThemeToggle_Click" Background="#FF7EABE0" Width="64" Content="☀"/>
                 </StackPanel>
             </Grid>
         </Border>
 
         <!-- 主内容区域 - 使用主题背景色 -->
-        <Border Background="{DynamicResource PanelBackgroundColor}" ClipToBounds="True" Margin="0,90,0,30">
+        <Border Background="{DynamicResource PanelBackgroundColor}" ClipToBounds="True" Margin="0,120,0,30">
             <Grid>
                 <!-- 学生端页面 -->
                 <Grid x:Name="StudentPage">
@@ -181,13 +188,13 @@
                                         <TextBlock Text="上传的图片将显示在学生端左下角" FontSize="13" Margin="0,10,0,0" Foreground="{DynamicResource SecondaryTextColor}"/>
                                     </StackPanel>
                                 </Border>
-                            
+
                                 <!-- 导入导出按钮 -->
                                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                                     <Button x:Name="ImportBtn" Content="导入作业" Style="{DynamicResource ImportButtonStyle}" Click="ImportBtn_Click"/>
                                     <Button x:Name="ExportBtn" Content="导出作业" Style="{DynamicResource ExportButtonStyle}" Click="ExportBtn_Click"/>
                                 </StackPanel>
-                                  
+
                                 <!-- 已布置作业 -->
                                 <Border Margin="0,10,0,0" Padding="15,0,0,0" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1,1,0,0">
                                     <StackPanel>
