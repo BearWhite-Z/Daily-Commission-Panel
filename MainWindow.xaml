@@ -30,8 +30,8 @@
     </Window.Resources>
     <!-- 根容器 -->
     <Grid>
-        <!-- 蓝色顶部区域 - 包含窗口控制按钮和标题栏 -->
-        <Border x:Name="Header" Height="120" VerticalAlignment="Top" Background="#FF5E96D8" ClipToBounds="True">
+        <!-- 顶部区域 - 包含窗口控制按钮和标题栏 -->
+        <Border x:Name="Header" Height="120" VerticalAlignment="Top" Background="{DynamicResource HeaderBackgroundColor}" ClipToBounds="True">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -49,15 +49,15 @@
 
                 <!-- 左侧信息 -->
                 <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="30,0,20,0">
-                    <TextBlock Text="现在是自习时间" FontSize="20" Foreground="White"/>
-                    <TextBlock Text="🤫" FontSize="28"/>
+                    <TextBlock Text="现在是自习时间🤫" FontSize="20" Foreground="White"/>
+                    <TextBlock FontSize="28" Foreground="#FFAEDCD7"/>
                 </StackPanel>
 
                 <!-- 时间显示区域 -->
                 <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <!-- 当前时间 -->
-                        <Border Background="#FF7EABE0" CornerRadius="8" Padding="15,10,15,10" MinWidth="140" Margin="0,0,15,0">
+                        <Border Background="{DynamicResource TimerBackgroundColor}" CornerRadius="8" Padding="15,10,15,10" MinWidth="140" Margin="0,0,15,0">
                             <StackPanel>
                                 <TextBlock Text="当前时间" FontSize="14" Foreground="{DynamicResource TimerLabelColor}" HorizontalAlignment="Center"/>
                                 <TextBlock x:Name="CurrentTimeText" FontSize="22" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Text="{Binding CurrentTime}" MinWidth="110"/>
@@ -65,7 +65,7 @@
                         </Border>
 
                         <!-- 剩余时间 -->
-                        <Border CornerRadius="8" Padding="15,10,15,10" MinWidth="140" Background="#FF7EABE0">
+                        <Border CornerRadius="8" Padding="15,10,15,10" MinWidth="140" Background="{DynamicResource TimerBackgroundColor}">
                             <StackPanel>
                                 <TextBlock Text="剩余时间" FontSize="14" Foreground="{DynamicResource TimerLabelColor}" HorizontalAlignment="Center"/>
                                 <TextBlock x:Name="CountdownText" FontSize="22" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Text="{Binding Countdown}" MinWidth="110"/>

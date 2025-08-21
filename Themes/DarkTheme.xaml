@@ -17,7 +17,7 @@
     <SolidColorBrush x:Key="HeaderBackgroundColor" Color="#315174"/>
     <SolidColorBrush x:Key="PanelBackgroundColor" Color="#1e1e1e"/>
     <SolidColorBrush x:Key="CardBackgroundColor" Color="#2D2D2D"/>
-    <SolidColorBrush x:Key="TimerBackgroundColor" Color="#FFFFFF40"/>
+    <SolidColorBrush x:Key="TimerBackgroundColor" Color="#5a748f"/>
     <SolidColorBrush x:Key="TimerLabelColor" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="ImagePlaceholderBackgroundColor" Color="#333333"/>
     <SolidColorBrush x:Key="AccentColor" Color="#315174"/>
