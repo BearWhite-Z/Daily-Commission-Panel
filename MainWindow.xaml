@@ -76,9 +76,8 @@
 
                 <!-- 右侧按钮 -->
                 <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,30,0">
-                    <Button x:Name="StudentBtn" Style="{DynamicResource NavButtonStyle}" Click="StudentBtn_Click" Background="#FF7EABE0" Content="学生端"/>
-                    <Button x:Name="TeacherBtn" Style="{DynamicResource NavButtonStyle}" Click="TeacherBtn_Click" Background="#FF7EABE0" Content="教师端"/>
-                    <Button x:Name="ThemeToggle" Style="{DynamicResource NavButtonStyle}" Click="ThemeToggle_Click" Background="#FF7EABE0" Width="64" Content="☀"/>
+                    <Button x:Name="ModeToggleButton" Style="{DynamicResource NavButtonStyle}" Click="ModeToggleButton_Click" Content="教师端" Margin="0,0,8,0" Background="#FF7EABE0"/>
+                    <Button x:Name="ThemeToggle" Style="{DynamicResource ThemeToggleButtonStyle}" Click="ThemeToggle_Click" Content="☀"/>
                 </StackPanel>
             </Grid>
         </Border>

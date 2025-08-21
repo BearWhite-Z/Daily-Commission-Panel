@@ -14,16 +14,16 @@
     <SolidColorBrush x:Key="BorderColor" Color="#E5E6EB"/>
 
     <!-- 组件颜色 -->
-    <SolidColorBrush x:Key="HeaderBackgroundColor" Color="#3498db"/>
+    <SolidColorBrush x:Key="HeaderBackgroundColor" Color="#FF5E96D8"/>
     <SolidColorBrush x:Key="PanelBackgroundColor" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="CardBackgroundColor" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="TimerBackgroundColor" Color="#FFFFFF40"/>
+    <SolidColorBrush x:Key="TimerBackgroundColor" Color="#7eabe0"/>
     <SolidColorBrush x:Key="TimerLabelColor" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="ImagePlaceholderBackgroundColor" Color="#F2F3F5"/>
-    <SolidColorBrush x:Key="AccentColor" Color="#3498db"/>
+    <SolidColorBrush x:Key="AccentColor" Color="#FF5E96D8"/>
     <SolidColorBrush x:Key="CardShadowColor" Color="#00000010"/>
-    <SolidColorBrush x:Key="ButtonHoverColor" Color="#FFFFFF30"/>
-    <SolidColorBrush x:Key="ButtonPressedColor" Color="#FFFFFF40"/>
+    <SolidColorBrush x:Key="ButtonHoverColor" Color="#7eabe0"/>
+    <SolidColorBrush x:Key="ButtonPressedColor" Color="#7eabe0"/>
 
     <!-- 按钮样式 -->
     <Style x:Key="NavButtonStyle" TargetType="Button">
@@ -37,13 +37,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" CornerRadius="20" Effect="{StaticResource ButtonShadow}">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="16" Effect="{StaticResource ButtonShadow}">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Background" Value="#FFFFFF15"/>
+        <Setter Property="Background" Value="#7eabe0"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource ButtonHoverColor}"/>
@@ -60,15 +60,15 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="15,10,15,10"/>
-        <Setter Property="FontSize" Value="16"/>
-        <Setter Property="MinWidth" Value="120"/>
-        <Setter Property="Height" Value="40"/>
+        <Setter Property="Padding" Value="10,6,10,6"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="MinWidth" Value="32"/>
+        <Setter Property="Height" Value="32"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" CornerRadius="20" Effect="{StaticResource ButtonShadow}">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="16" Effect="{StaticResource ButtonShadow}">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
@@ -76,11 +76,11 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#FFFFFF15"/>
+                <Setter Property="Background" Value="#7eabe0"/>
                 <Setter Property="Opacity" Value="0.9"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="#FFFFFF30"/>
+                <Setter Property="Background" Value="#7eabe0"/>
                 <Setter Property="Opacity" Value="0.8"/>
             </Trigger>
         </Style.Triggers>

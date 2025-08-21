@@ -14,13 +14,13 @@
     <SolidColorBrush x:Key="BorderColor" Color="#333333"/>
 
     <!-- 组件颜色 -->
-    <SolidColorBrush x:Key="HeaderBackgroundColor" Color="#1a5276"/>
+    <SolidColorBrush x:Key="HeaderBackgroundColor" Color="#315174"/>
     <SolidColorBrush x:Key="PanelBackgroundColor" Color="#1e1e1e"/>
     <SolidColorBrush x:Key="CardBackgroundColor" Color="#2D2D2D"/>
     <SolidColorBrush x:Key="TimerBackgroundColor" Color="#FFFFFF40"/>
     <SolidColorBrush x:Key="TimerLabelColor" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="ImagePlaceholderBackgroundColor" Color="#333333"/>
-    <SolidColorBrush x:Key="AccentColor" Color="#5dade2"/>
+    <SolidColorBrush x:Key="AccentColor" Color="#315174"/>
     <SolidColorBrush x:Key="CardShadowColor" Color="#00000030"/>
     <SolidColorBrush x:Key="ButtonHoverColor" Color="#FFFFFF30"/>
     <SolidColorBrush x:Key="ButtonPressedColor" Color="#FFFFFF40"/>
@@ -31,13 +31,13 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="15,10,15,10"/>
         <Setter Property="FontSize" Value="16"/>
-        <Setter Property="MinWidth" Value="80"/>
+        <Setter Property="MinWidth" Value="100"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" CornerRadius="20" Effect="{StaticResource ButtonShadow}">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="16" Effect="{StaticResource ButtonShadow}">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
@@ -60,15 +60,15 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="15,10,15,10"/>
-        <Setter Property="FontSize" Value="16"/>
-        <Setter Property="MinWidth" Value="80"/>
-        <Setter Property="Height" Value="40"/>
+        <Setter Property="Padding" Value="10,6,10,6"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="MinWidth" Value="32"/>
+        <Setter Property="Height" Value="32"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" CornerRadius="20" Effect="{StaticResource ButtonShadow}">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="16" Effect="{StaticResource ButtonShadow}">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>

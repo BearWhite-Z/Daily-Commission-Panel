@@ -91,8 +91,13 @@ namespace DailyOrderPanel
             // 设置初始主题
             CheckSystemTheme();
 
-            // 设置学生端按钮初始状态
-            StudentBtn.Background = new SolidColorBrush(Color.FromArgb(51, 255, 255, 255));
+            // 初始显示学生端界面
+            StudentPage.Visibility = Visibility.Visible;
+            TeacherPage.Visibility = Visibility.Collapsed;
+
+            // 设置切换按钮初始状态和文本
+            ModeToggleButton.Background = new SolidColorBrush(Color.FromArgb(34, 255, 255, 255));
+            ModeToggleButton.Content = "教师端";
         }
 
         // 注意：最小化、最大化和关闭按钮已从UI中移除
@@ -149,33 +154,38 @@ namespace DailyOrderPanel
             Countdown = countdownText;
         }
 
-        private void StudentBtn_Click(object sender, RoutedEventArgs e)
+        private void ModeToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            StudentPage.Visibility = Visibility.Visible;
-            TeacherPage.Visibility = Visibility.Collapsed;
-
-            // 更新按钮状态
-            StudentBtn.Background = new SolidColorBrush(Color.FromArgb(51, 255, 255, 255));
-            TeacherBtn.Background = new SolidColorBrush(Color.FromArgb(34, 255, 255, 255));
-
-            // 更新底部文本
-            FooterText.Text = "© 2025 DOP每日委托面板 ZFTONY制 | 版本 Beta0.3.7.1";
-        }
-
-        private void TeacherBtn_Click(object sender, RoutedEventArgs e)
-        {
-            StudentPage.Visibility = Visibility.Collapsed;
-            TeacherPage.Visibility = Visibility.Visible;
-
-            // 更新按钮状态
-            TeacherBtn.Background = new SolidColorBrush(Color.FromArgb(51, 255, 255, 255));
-            StudentBtn.Background = new SolidColorBrush(Color.FromArgb(34, 255, 255, 255));
-
-            // 更新底部文本
-            FooterText.Text = "布置的作业将实时显示在学生端";
-
-            // 刷新教师端作业列表
-            LoadHomeworkData();
+            // 检查当前显示的页面
+            if (StudentPage.Visibility == Visibility.Visible)
+            {
+                // 切换到教师端
+                StudentPage.Visibility = Visibility.Collapsed;
+                TeacherPage.Visibility = Visibility.Visible;
+                
+                // 更新按钮状态和文本
+                ModeToggleButton.Background = new SolidColorBrush(Color.FromArgb(51, 255, 255, 255));
+                ModeToggleButton.Content = "学生端";
+                
+                // 更新底部文本
+                FooterText.Text = "布置的作业将实时显示在学生端";
+                
+                // 刷新教师端作业列表
+                LoadHomeworkData();
+            }
+            else
+            {
+                // 切换到学生端
+                StudentPage.Visibility = Visibility.Visible;
+                TeacherPage.Visibility = Visibility.Collapsed;
+                
+                // 更新按钮状态和文本
+                ModeToggleButton.Background = new SolidColorBrush(Color.FromArgb(34, 255, 255, 255));
+                ModeToggleButton.Content = "教师端";
+                
+                // 更新底部文本
+                FooterText.Text = "© 2025 DOP每日委托面板 ZFTONY制 | 版本 Beta0.3.7.1";
+            }
         }
 
         private void ThemeToggle_Click(object sender, RoutedEventArgs e)
