@@ -157,36 +157,99 @@ namespace DailyOrderPanel
 
         private void ModeToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            // 检查当前显示的页面
+            // 检查当前显示的页面并执行动画切换
             if (StudentPage.Visibility == Visibility.Visible)
             {
                 // 切换到教师端
-                StudentPage.Visibility = Visibility.Collapsed;
-                TeacherPage.Visibility = Visibility.Visible;
-                
-                // 更新按钮状态和文本
-                ModeToggleButton.Background = new SolidColorBrush(Color.FromArgb(51, 255, 255, 255));
-                ModeToggleButton.Content = "学生端";
-                
-                // 更新底部文本
-                FooterText.Text = "布置的作业将实时显示在学生端";
-                
-                // 刷新教师端作业列表
-                LoadHomeworkData();
+                AnimatePageChange(true);
             }
             else
             {
                 // 切换到学生端
-                StudentPage.Visibility = Visibility.Visible;
-                TeacherPage.Visibility = Visibility.Collapsed;
-                
-                // 更新按钮状态和文本
-                ModeToggleButton.Background = new SolidColorBrush(Color.FromArgb(34, 255, 255, 255));
-                ModeToggleButton.Content = "教师端";
-                
-                // 更新底部文本
-                FooterText.Text = "© 2025 DOP每日委托面板 ZFTONY制 | 版本 Beta0.3.7.1";
+                AnimatePageChange(false);
             }
+        }
+
+        // 带渐变动画的页面切换
+        private void AnimatePageChange(bool switchToTeacherMode)
+        {
+            // 创建一个覆盖层
+            Grid overlay = new Grid();
+            // 设置适当的背景色，与当前主题匹配
+            overlay.Background = isDarkMode ? 
+                new SolidColorBrush(Color.FromArgb(255, 30, 30, 30)) : 
+                new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+            overlay.Visibility = Visibility.Visible;
+            overlay.HorizontalAlignment = HorizontalAlignment.Stretch;
+            overlay.VerticalAlignment = VerticalAlignment.Stretch;
+            overlay.PreviewMouseDown += (s, e) => e.Handled = true;
+            overlay.IsHitTestVisible = true;
+
+            // 将覆盖层添加到主窗口
+            var mainGrid = (Grid)this.Content;
+            Panel.SetZIndex(overlay, 1000);
+            mainGrid.Children.Add(overlay);
+
+            // 创建淡入动画
+            DoubleAnimation fadeInAnimation = new DoubleAnimation();
+            fadeInAnimation.From = 0;
+            fadeInAnimation.To = 1;
+            fadeInAnimation.Duration = TimeSpan.FromMilliseconds(200);
+            fadeInAnimation.EasingFunction = new QuadraticEase() { EasingMode = EasingMode.EaseInOut };
+
+            // 创建淡出动画
+            DoubleAnimation fadeOutAnimation = new DoubleAnimation();
+            fadeOutAnimation.From = 1;
+            fadeOutAnimation.To = 0;
+            fadeOutAnimation.Duration = TimeSpan.FromMilliseconds(200);
+            fadeOutAnimation.EasingFunction = new QuadraticEase() { EasingMode = EasingMode.EaseInOut };
+
+            // 设置动画完成事件
+            fadeInAnimation.Completed += (s, e) =>
+            {
+                // 动画中间点，切换页面
+                if (switchToTeacherMode)
+                {
+                    // 切换到教师端
+                    StudentPage.Visibility = Visibility.Collapsed;
+                    TeacherPage.Visibility = Visibility.Visible;
+                    
+                    // 更新按钮状态和文本
+                    ModeToggleButton.Background = new SolidColorBrush(Color.FromArgb(51, 255, 255, 255));
+                    ModeToggleButton.Content = "学生端";
+                    
+                    // 更新底部文本
+                    FooterText.Text = "布置的作业将实时显示在学生端";
+                    
+                    // 刷新教师端作业列表
+                    LoadHomeworkData();
+                }
+                else
+                {
+                    // 切换到学生端
+                    StudentPage.Visibility = Visibility.Visible;
+                    TeacherPage.Visibility = Visibility.Collapsed;
+                    
+                    // 更新按钮状态和文本
+                    ModeToggleButton.Background = new SolidColorBrush(Color.FromArgb(34, 255, 255, 255));
+                    ModeToggleButton.Content = "教师端";
+                    
+                    // 更新底部文本
+                    FooterText.Text = "© 2025 DOP每日委托面板 ZFTONY制 | 版本 Beta0.3.7.1";
+                }
+
+                // 开始淡出动画
+                overlay.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
+            };
+
+            // 淡出动画完成后移除覆盖层
+            fadeOutAnimation.Completed += (s, e) =>
+            {
+                mainGrid.Children.Remove(overlay);
+            };
+
+            // 开始动画
+            overlay.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
         }
 
         private void ThemeToggle_Click(object sender, RoutedEventArgs e)
