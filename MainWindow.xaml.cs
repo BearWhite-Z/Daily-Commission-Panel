@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -191,7 +192,7 @@ namespace DailyOrderPanel
         private void ThemeToggle_Click(object sender, RoutedEventArgs e)
         {
             isDarkMode = !isDarkMode;
-            UpdateTheme();
+            AnimateThemeChange();
 
             // 保存主题偏好
             Properties.Settings.Default.IsDarkMode = isDarkMode;
@@ -214,8 +215,7 @@ namespace DailyOrderPanel
             UpdateTheme();
         }
 
-
-
+        // 直接更新主题（用于初始化）
         private void UpdateTheme()
         {
             // 清除现有主题资源
@@ -232,6 +232,59 @@ namespace DailyOrderPanel
                 Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Themes/LightTheme.xaml", UriKind.Relative) });
                 ThemeToggle.Content = new TextBlock() { Text = "🌙", FontSize = 18 };
             }
+        }
+
+        // 带渐变动画的主题切换
+        private void AnimateThemeChange()
+        {
+            // 创建一个覆盖层
+            Grid overlay = new Grid();
+            // 设置适当的背景色，alpha值设为255使其可见
+            overlay.Background = isDarkMode ? 
+                new SolidColorBrush(Color.FromArgb(255, 30, 30, 30)) : 
+                new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+            overlay.Visibility = Visibility.Visible;
+            overlay.HorizontalAlignment = HorizontalAlignment.Stretch;
+            overlay.VerticalAlignment = VerticalAlignment.Stretch;
+            overlay.PreviewMouseDown += (s, e) => e.Handled = true;
+            overlay.IsHitTestVisible = true;
+
+            // 将覆盖层添加到主窗口
+            var mainGrid = (Grid)this.Content;
+            Panel.SetZIndex(overlay, 1000);
+            mainGrid.Children.Add(overlay);
+
+            // 创建淡入动画，调整持续时间使切换速度更快
+            DoubleAnimation fadeInAnimation = new DoubleAnimation();
+            fadeInAnimation.From = 0;
+            fadeInAnimation.To = 1;
+            fadeInAnimation.Duration = TimeSpan.FromMilliseconds(200);
+            fadeInAnimation.EasingFunction = new QuadraticEase() { EasingMode = EasingMode.EaseInOut };
+
+            // 创建淡出动画，调整持续时间使切换速度更快
+            DoubleAnimation fadeOutAnimation = new DoubleAnimation();
+            fadeOutAnimation.From = 1;
+            fadeOutAnimation.To = 0;
+            fadeOutAnimation.Duration = TimeSpan.FromMilliseconds(200);
+            fadeOutAnimation.EasingFunction = new QuadraticEase() { EasingMode = EasingMode.EaseInOut };
+
+            // 设置动画完成事件
+            fadeInAnimation.Completed += (s, e) =>
+            {
+                // 动画中间点，切换主题
+                UpdateTheme();
+                // 开始淡出动画
+                overlay.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
+            };
+
+            // 淡出动画完成后移除覆盖层
+            fadeOutAnimation.Completed += (s, e) =>
+            {
+                mainGrid.Children.Remove(overlay);
+            };
+
+            // 开始动画
+            overlay.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
         }
 
         private void LoadHomeworkData()
