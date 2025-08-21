@@ -4,7 +4,7 @@
 
     <!-- 阴影效果 -->
     <DropShadowEffect x:Key="ButtonShadow" BlurRadius="6" ShadowDepth="2" Color="#00000030"/>
-    <DropShadowEffect x:Key="CardShadow" BlurRadius="8" ShadowDepth="3" Color="#00000030"/>
+    <DropShadowEffect x:Key="CardShadow" BlurRadius="4" ShadowDepth="1" Color="#00000008"/>
 
     <!-- 基础颜色 -->
     <SolidColorBrush x:Key="BackgroundColor" Color="#121212"/>
@@ -103,14 +103,14 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Background" Value="#165DFF"/>
+        <Setter Property="Background" Value="#5e96d8"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#4080FF"/>
+                <Setter Property="Background" Value="#7eb5e0"/>
                 <Setter Property="Opacity" Value="0.9"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="#0E42D2"/>
+                <Setter Property="Background" Value="#4d7ea8"/>
                 <Setter Property="Opacity" Value="0.8"/>
             </Trigger>
         </Style.Triggers>
@@ -133,14 +133,14 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Background" Value="#F53F3F"/>
+        <Setter Property="Background" Value="#cc5240"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#D93636"/>
+                <Setter Property="Background" Value="#e06e5d"/>
                 <Setter Property="Opacity" Value="0.9"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="#B32828"/>
+                <Setter Property="Background" Value="#a83e2e"/>
                 <Setter Property="Opacity" Value="0.8"/>
             </Trigger>
         </Style.Triggers>
@@ -163,14 +163,14 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Background" Value="#00B42A"/>
+        <Setter Property="Background" Value="#76cb77"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#008A20"/>
+                <Setter Property="Background" Value="#90dc91"/>
                 <Setter Property="Opacity" Value="0.9"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="#006818"/>
+                <Setter Property="Background" Value="#62aa63"/>
                 <Setter Property="Opacity" Value="0.8"/>
             </Trigger>
         </Style.Triggers>
@@ -193,14 +193,14 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Background" Value="#FF7D00"/>
+        <Setter Property="Background" Value="#e09f2d"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#E57000"/>
+                <Setter Property="Background" Value="#f0b853"/>
                 <Setter Property="Opacity" Value="0.9"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="#C25C00"/>
+                <Setter Property="Background" Value="#c58b1a"/>
                 <Setter Property="Opacity" Value="0.8"/>
             </Trigger>
         </Style.Triggers>
