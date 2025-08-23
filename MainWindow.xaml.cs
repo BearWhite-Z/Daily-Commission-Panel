@@ -98,7 +98,7 @@ namespace DailyOrderPanel
 
             // 设置切换按钮初始状态和文本
             ModeToggleButton.Background = new SolidColorBrush(Color.FromArgb(34, 255, 255, 255));
-            ModeToggleButton.Content = "教师端";
+            ModeToggleButton.Content = "布置作业";
         }
 
         // 注意：最小化、最大化和关闭按钮已从UI中移除
@@ -216,10 +216,10 @@ namespace DailyOrderPanel
                     
                     // 更新按钮状态和文本
                     ModeToggleButton.Background = new SolidColorBrush(Color.FromArgb(51, 255, 255, 255));
-                    ModeToggleButton.Content = "学生端";
+                    ModeToggleButton.Content = "作业面板";
                     
                     // 更新底部文本
-                    FooterText.Text = "布置的作业将实时显示在学生端";
+                    FooterText.Text = "布置的作业将实时显示在作业面板";
                     
                     // 刷新教师端作业列表
                     LoadHomeworkData();
@@ -232,7 +232,7 @@ namespace DailyOrderPanel
                     
                     // 更新按钮状态和文本
                     ModeToggleButton.Background = new SolidColorBrush(Color.FromArgb(34, 255, 255, 255));
-                    ModeToggleButton.Content = "教师端";
+                    ModeToggleButton.Content = "布置作业";
                     
                     // 更新底部文本
                     FooterText.Text = "© 2025 DOP每日委托面板 ZFTONY制 | 版本 Beta0.3.7.1";

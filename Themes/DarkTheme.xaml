@@ -215,4 +215,85 @@
         <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
     </Style>
 
+    <!-- ComboBox样式 -->
+    <Style TargetType="ComboBox" x:Key="DarkComboBoxStyle">
+        <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+
+    <!-- 默认ComboBox样式 -->
+    <Style TargetType="ComboBox" BasedOn="{StaticResource DarkComboBoxStyle}"/>
+
+    <!-- TextBox样式 -->
+    <Style TargetType="TextBox" x:Key="DarkTextBoxStyle">
+        <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+
+    <!-- 默认TextBox样式 -->
+    <Style TargetType="TextBox" BasedOn="{StaticResource DarkTextBoxStyle}"/>
+
+    <!-- 教师端科目选择ComboBox样式 -->
+    <Style TargetType="ComboBox" x:Key="SubjectComboBoxStyle" BasedOn="{StaticResource DarkComboBoxStyle}">
+        <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="2">
+                            <Grid>
+                                <ContentPresenter Margin="{TemplateBinding Padding}"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Content="{TemplateBinding SelectionBoxItem}"
+                                                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>
+                                <ToggleButton Grid.Column="1"
+                                              Margin="0"
+                                              HorizontalAlignment="Right"
+                                              VerticalAlignment="Center"
+                                              Background="Transparent"
+                                              BorderBrush="Transparent"
+                                              Focusable="False"
+                                              IsChecked="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                                    <Path Width="8" Height="5" Data="M 0 0 L 8 0 L 4 5 Z" Fill="{TemplateBinding Foreground}"/>
+                                </ToggleButton>
+                            </Grid>
+                        </Border>
+                        <Popup IsOpen="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                               Placement="Bottom"
+                               Focusable="False">
+                            <Border Background="{StaticResource PanelBackgroundColor}"
+                                    BorderBrush="{StaticResource BorderColor}"
+                                    BorderThickness="1"
+                                    MinWidth="{TemplateBinding ActualWidth}">
+                                <ScrollViewer CanContentScroll="True">
+                                    <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- 教师端作业输入TextBox样式 -->
+    <Style TargetType="TextBox" x:Key="HomeworkTextBoxStyle" BasedOn="{StaticResource DarkTextBoxStyle}">
+        <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+    </Style>
+
 </ResourceDictionary>
