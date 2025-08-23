@@ -9,7 +9,13 @@
     <!-- 暂时移除图标设置，解决路径不存在问题 -->
     <!-- <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon> -->
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <ApplicationIcon>DailyOrderPanelicon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="DailyOrderPanelicon.ico" />
+  </ItemGroup>
 
 
 

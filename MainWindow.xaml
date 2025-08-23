@@ -232,7 +232,7 @@
         <!-- 底部状态栏 -->
         <Border Height="30" VerticalAlignment="Bottom" Background="{DynamicResource PanelBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,1,0,0">
             <Grid x:Name="Footer">
-                <TextBlock x:Name="FooterText" Text="© 2025 DOP每日委托面板 ZFTONY制 | 版本 Beta0.3.7.1" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource SecondaryTextColor}"/>
+                <TextBlock x:Name="FooterText" Text="DOP每日委托面板 ZFTONY | 版本 1.0.0" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource SecondaryTextColor}"/>
             </Grid>
         </Border>
     </Grid>
