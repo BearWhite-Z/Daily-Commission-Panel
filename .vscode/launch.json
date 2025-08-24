@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/net6.0-windows/DailyOrderPanel.dll",
+            "program": "${workspaceFolder}/bin/Debug/net6.0-windows/DailyCommissionPanel.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",

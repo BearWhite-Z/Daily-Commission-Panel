@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DailyOrderPanel.Properties
+namespace DailyCommissionPanel.Properties
 {
     using System;
 

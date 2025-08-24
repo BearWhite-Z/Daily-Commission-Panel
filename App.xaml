@@ -1,7 +1,7 @@
-<Application x:Class="DailyOrderPanel.App"
+<Application x:Class="DailyCommissionPanel.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:DailyOrderPanel"
+             xmlns:local="clr-namespace:DailyCommissionPanel"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <!-- 应用程序级资源 -->

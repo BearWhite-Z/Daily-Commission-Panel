@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace DailyOrderPanel
+namespace DailyCommissionPanel
 {
     /// <summary>
     /// App.xaml 的交互逻辑

@@ -18,7 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace DailyOrderPanel
+namespace DailyCommissionPanel
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
@@ -235,7 +235,7 @@ namespace DailyOrderPanel
                     ModeToggleButton.Content = "布置作业";
                     
                     // 更新底部文本
-                    FooterText.Text = "© 2025 DOP每日委托面板 ZFTONY制 | 版本 Beta0.3.7.1";
+                    FooterText.Text = "DCP每日委托面板 ZFTONY | 版本 1.0.0";
                 }
 
                 // 开始淡出动画
@@ -355,7 +355,7 @@ namespace DailyOrderPanel
             // 从本地存储加载作业数据
             try
             {
-                string dataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DailyOrderPanel");
+                string dataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DailyCommissionPanel");
                 string homeworkFile = System.IO.Path.Combine(dataPath, "homeworkData.json");
 
                 if (File.Exists(homeworkFile))
@@ -405,7 +405,7 @@ namespace DailyOrderPanel
         {
             try
             {
-                string dataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DailyOrderPanel");
+                string dataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DailyCommissionPanel");
                 Directory.CreateDirectory(dataPath);
                 string homeworkFile = System.IO.Path.Combine(dataPath, "homeworkData.json");
 
@@ -431,7 +431,7 @@ namespace DailyOrderPanel
         {
             try
             {
-                string dataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DailyOrderPanel");
+                string dataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DailyCommissionPanel");
                 string imageFile = System.IO.Path.Combine(dataPath, "customImage.png");
 
                 if (File.Exists(imageFile))
@@ -463,7 +463,7 @@ namespace DailyOrderPanel
         {
             try
             {
-                string dataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DailyOrderPanel");
+                string dataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DailyCommissionPanel");
                 Directory.CreateDirectory(dataPath);
                 string targetFile = System.IO.Path.Combine(dataPath, "customImage.png");
 
@@ -483,7 +483,7 @@ namespace DailyOrderPanel
         {
             try
             {
-                string dataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DailyOrderPanel");
+                string dataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DailyCommissionPanel");
                 string imageFile = System.IO.Path.Combine(dataPath, "customImage.png");
 
                 if (File.Exists(imageFile))
@@ -585,7 +585,7 @@ namespace DailyOrderPanel
             try
             {
                 // 准备导出数据
-                string dataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DailyOrderPanel");
+                string dataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DailyCommissionPanel");
                 string homeworkFile = System.IO.Path.Combine(dataPath, "homeworkData.json");
                 string imageFile = System.IO.Path.Combine(dataPath, "customImage.png");
 
@@ -672,7 +672,7 @@ namespace DailyOrderPanel
                         // 保存作业数据
                         if (importedData.homework != null)
                         {
-                            string dataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DailyOrderPanel");
+                            string dataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DailyCommissionPanel");
                             Directory.CreateDirectory(dataPath);
                             string homeworkFile = System.IO.Path.Combine(dataPath, "homeworkData.json");
 
@@ -683,7 +683,7 @@ namespace DailyOrderPanel
                         // 保存图片数据
                         if (!string.IsNullOrEmpty(importedData.customImage))
                         {
-                            string dataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DailyOrderPanel");
+                            string dataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DailyCommissionPanel");
                             Directory.CreateDirectory(dataPath);
                             string imageFile = System.IO.Path.Combine(dataPath, "customImage.png");
 

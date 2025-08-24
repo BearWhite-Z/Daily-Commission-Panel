@@ -10,11 +10,11 @@
     <!-- <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon> -->
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-    <ApplicationIcon>DailyOrderPanelicon.ico</ApplicationIcon>
+    <ApplicationIcon>DailyCommissionPanelicon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="DailyOrderPanelicon.ico" />
+    <Content Include="DailyCommissionPanelicon.ico" />
   </ItemGroup>
 
 
