@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using DailyCommissionPanel.Models;
 
 namespace DailyCommissionPanel
 {
@@ -66,12 +67,17 @@ namespace DailyCommissionPanel
             set { countdown = value; OnPropertyChanged("Countdown"); }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public event EventHandler? ThemeChanged;
 
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        private string settingsFilePath = "settings.json";
+        // 明确指定使用的是DailyCommissionPanel命名空间下的Settings类
+        private Models.Settings currentSettings = new Models.Settings();
 
         public MainWindow()
         {
@@ -90,7 +96,10 @@ namespace DailyCommissionPanel
             LoadCustomImage();
 
             // 设置初始主题
-            CheckSystemTheme();
+            LoadTheme();
+
+            // 加载设置
+            LoadSettings();
 
             // 初始显示学生端界面
             StudentPage.Visibility = Visibility.Visible;
@@ -105,6 +114,20 @@ namespace DailyCommissionPanel
         // 仅保留全屏功能
 
         // 全屏切换
+        private void SettingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SettingsWindow settingsWindow = new SettingsWindow();
+                settingsWindow.Owner = this;
+                settingsWindow.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("打开设置窗口时出错: " + ex.Message + "\n\n堆栈跟踪: " + ex.StackTrace, "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private void FullScreenBtn_Click(object sender, RoutedEventArgs e)
         {
             if (WindowStyle == WindowStyle.None)
@@ -125,7 +148,7 @@ namespace DailyCommissionPanel
             }
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object? sender, EventArgs e)
         {
             UpdateTime();
         }
@@ -135,24 +158,32 @@ namespace DailyCommissionPanel
             // 更新当前时间
             CurrentTime = DateTime.Now.ToString("HH:mm:ss");
 
-            // 计算剩余时间（晚自习结束时间为21:50）
-            DateTime endTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 21, 50, 0);
-            TimeSpan diff = endTime - DateTime.Now;
+            if (currentSettings == null)
+                return;
 
-            if (diff.TotalMilliseconds <= 0)
+            // 计算剩余时间（晚自习结束时间从设置获取）
+            DateTime endTime = DateTime.Now.Date.AddHours(currentSettings.EndHour).AddMinutes(currentSettings.EndMinute);
+            if (DateTime.Now > endTime)
+            {
+                endTime = endTime.AddDays(1);
+            }
+
+            TimeSpan remaining = endTime - DateTime.Now;
+            if (remaining.TotalMilliseconds <= 0)
             {
                 Countdown = "自习结束";
-                return;
             }
-
-            // 格式化剩余时间
-            string countdownText = "";
-            if (diff.Hours > 0)
+            else
             {
-                countdownText += $"{diff.Hours}时";
+                // 格式化剩余时间
+                string countdownText = "";
+                if (remaining.Hours > 0)
+                {
+                    countdownText += $"{remaining.Hours}时";
+                }
+                countdownText += $"{remaining.Minutes}分{remaining.Seconds}秒";
+                Countdown = countdownText;
             }
-            countdownText += $"{diff.Minutes}分{diff.Seconds}秒";
-            Countdown = countdownText;
         }
 
         private void ModeToggleButton_Click(object sender, RoutedEventArgs e)
@@ -260,22 +291,98 @@ namespace DailyCommissionPanel
             // 保存主题偏好
             Properties.Settings.Default.IsDarkMode = isDarkMode;
             Properties.Settings.Default.Save();
+
+            // 触发主题变化事件
+            ThemeChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        private void CheckSystemTheme()
+        private void LoadTheme()
         {
-            // 检查用户设置
-            if (Properties.Settings.Default.IsDarkMode.HasValue)
+            // 检查用户设置并更新isDarkMode变量
+            isDarkMode = Properties.Settings.Default.IsDarkMode ?? false;
+            if (isDarkMode)
             {
-                isDarkMode = Properties.Settings.Default.IsDarkMode.Value;
+                Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Themes/DarkTheme.xaml", UriKind.Relative) });
+                ThemeToggle.Content = new TextBlock() { Text = "☀️", FontSize = 18 };
             }
             else
             {
-                // 默认使用浅色主题
-                isDarkMode = false;
+                Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Themes/LightTheme.xaml", UriKind.Relative) });
+                ThemeToggle.Content = new TextBlock() { Text = "🌙", FontSize = 18 };
             }
+        }
 
-            UpdateTheme();
+        private void LoadSettings()
+        {
+            try
+            {
+                if (File.Exists(settingsFilePath))
+                {
+                    string json = File.ReadAllText(settingsFilePath);
+                    currentSettings = JsonSerializer.Deserialize<Models.Settings>(json) ?? currentSettings;
+                }
+                else
+                {
+                    // 使用默认设置
+                    currentSettings = new Models.Settings
+                    {
+                        EndHour = 21,
+                        EndMinute = 50,
+                        Rules = new List<string>
+                        {
+                            "保持安静，专注学习📕",
+                            "有问题憋着下课问‍",
+                            "合理规划自习时间⏰",
+                            "今天不学习，明天变垃圾🚮",
+                            "珍惜每分每秒🕙",
+                            "物品轻拿轻放🐾🐈🐑🦘🦥🦛",
+                            "作业做完了吗就讲话，闭嘴👊🔥"
+                        }
+                    };
+                }
+
+                // 更新规则文本
+                UpdateRulesText();
+            } catch (Exception ex)
+            {
+                MessageBox.Show("加载设置时出错: " + ex.Message);
+                currentSettings = new Settings
+                {
+                    EndHour = 21,
+                    EndMinute = 50,
+                    Rules = new List<string>
+                    {
+                        "保持安静，专注学习📕",
+                        "有问题憋着下课问‍",
+                        "合理规划自习时间⏰",
+                        "今天不学习，明天变垃圾🚮",
+                        "珍惜每分每秒🕙",
+                        "物品轻拿轻放🐾🐈🐑🦘🦥🦛",
+                        "作业做完了吗就讲话，闭嘴👊🔥"
+                    }
+                };
+                UpdateRulesText();
+            }
+        }
+
+        public void UpdateSettings(Models.Settings newSettings)
+        {
+            currentSettings = newSettings;
+            UpdateRulesText();
+            UpdateTime();
+        }
+
+        private void UpdateRulesText()
+        {
+            if (currentSettings?.Rules != null && currentSettings.Rules.Count > 0)
+            {
+                // 显示所有规则
+                Rules = new List<string>(currentSettings.Rules);
+            }
+            else
+            {
+                Rules = new List<string> { "请在设置中添加规则" };
+            }
         }
 
         // 直接更新主题（用于初始化）
@@ -361,7 +468,7 @@ namespace DailyCommissionPanel
                 if (File.Exists(homeworkFile))
                 {
                     string json = File.ReadAllText(homeworkFile);
-                    Dictionary<string, string> homeworkData = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+                    Dictionary<string, string> homeworkData = JsonSerializer.Deserialize<Dictionary<string, string>>(json) ?? new Dictionary<string, string>();
 
                     // 创建作业项列表
                     List<HomeworkItem> items = new List<HomeworkItem>();
@@ -502,7 +609,7 @@ namespace DailyCommissionPanel
 
         private void SubmitBtn_Click(object sender, RoutedEventArgs e)
         {
-            string subject = (SubjectComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+            string subject = (SubjectComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? string.Empty;
             string content = HomeworkTextBox.Text.Trim();
 
             if (string.IsNullOrEmpty(subject))
@@ -593,7 +700,7 @@ namespace DailyCommissionPanel
                 if (File.Exists(homeworkFile))
                 {
                     string json = File.ReadAllText(homeworkFile);
-                    homeworkData = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+                    homeworkData = JsonSerializer.Deserialize<Dictionary<string, string>>(json) ?? new Dictionary<string, string>();
                 }
 
                 // 检查是否有内容可导出
@@ -644,7 +751,12 @@ namespace DailyCommissionPanel
                 try
                 {
                     string json = File.ReadAllText(openFileDialog.FileName);
-                    ExportData importedData = JsonSerializer.Deserialize<ExportData>(json);
+                    ExportData? importedData = JsonSerializer.Deserialize<ExportData>(json);
+                    if (importedData == null)
+                    {
+                        MessageBox.Show("导入的JSON文件格式无效", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
 
                     // 验证数据格式
                     if (importedData == null || (importedData.homework == null && importedData.customImage == null))
@@ -714,10 +826,10 @@ namespace DailyCommissionPanel
     // 作业项类
     public class HomeworkItem : INotifyPropertyChanged
     {
-        private string subject;
-        private string content;
-        private string icon;
-        private SolidColorBrush subjectColor;
+        private string subject = string.Empty;
+        private string content = string.Empty;
+        private string icon = string.Empty;
+        private SolidColorBrush subjectColor = new SolidColorBrush();
 
         public string Subject
         {
@@ -743,7 +855,7 @@ namespace DailyCommissionPanel
             set { subjectColor = value; OnPropertyChanged("SubjectColor"); }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)
         {
@@ -799,7 +911,13 @@ namespace DailyCommissionPanel
     {
         public MetaData meta { get; set; }
         public Dictionary<string, string> homework { get; set; }
-        public string customImage { get; set; }
+        public string? customImage { get; set; }
+
+        public ExportData()
+        {
+            meta = new MetaData();
+            homework = new Dictionary<string, string>();
+        }
     }
 
     public class MetaData
@@ -807,5 +925,13 @@ namespace DailyCommissionPanel
         public string version { get; set; }
         public string exportTime { get; set; }
         public string system { get; set; }
+
+        public MetaData()
+        {
+            version = string.Empty;
+            exportTime = string.Empty;
+            system = string.Empty;
+        }
     }
+
 }

@@ -22,8 +22,30 @@
     <SolidColorBrush x:Key="ImagePlaceholderBackgroundColor" Color="#F2F3F5"/>
     <SolidColorBrush x:Key="AccentColor" Color="#FF5E96D8"/>
     <SolidColorBrush x:Key="CardShadowColor" Color="#00000010"/>
+    <SolidColorBrush x:Key="ButtonBackgroundColor" Color="#7eabe0"/>
+    <SolidColorBrush x:Key="ButtonTextColor" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="ButtonHoverColor" Color="#7eabe0"/>
     <SolidColorBrush x:Key="ButtonPressedColor" Color="#7eabe0"/>
+
+    <!-- 组合框样式 -->
+    <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="5,3,5,3"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource AccentColor}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{StaticResource PlaceholderTextColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
     <!-- 按钮样式 -->
     <Style x:Key="NavButtonStyle" TargetType="Button">
