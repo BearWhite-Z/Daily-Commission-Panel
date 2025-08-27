@@ -1,8 +1,8 @@
 <div align="center">
 
-# <image src="Assets/DCP 图标.svg" height="28" width="28"/> DCP每日委托面板
+# <image src="Assets/DCP 图标.svg" height="28" width="28"/> DCP每日作业面板
 
-DCP每日委托面板是一个简洁实用的作业管理工具，专为教师和学生设计，提供作业展示、布置和管理功能。
+DCP每日作业面板是一个简洁实用的作业管理工具，专为教师和学生设计，提供作业展示、布置和管理功能。
 
 </div>
 
@@ -152,6 +152,6 @@ DCP每日委托面板是一个简洁实用的作业管理工具，专为教师�
 
 <div align="center">
 
-DCP每日委托面板 | ZFTONY 
+DCP每日作业面板 | ZFTONY 
 
 </div>

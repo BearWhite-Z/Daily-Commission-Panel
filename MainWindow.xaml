@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DailyCommissionPanel"
         mc:Ignorable="d"
-        Title="DCP每日委托面板"
+        Title="DCP每日作业面板"
         Background="#FFFFFF"
         WindowStyle="SingleBorderWindow"
         AllowsTransparency="False"
@@ -122,12 +122,12 @@
                             <ItemsControl x:Name="HomeworkList" ItemsSource="{Binding HomeworkItems}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <UniformGrid Columns="3"/>
+                                        <WrapPanel Orientation="Horizontal"/>
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Border Style="{DynamicResource CardStyle}" Margin="5" Height="Auto">
+                                        <Border x:Name="HomeworkCard" Style="{DynamicResource CardStyle}" Margin="5" Height="Auto" Width="300">
                                             <StackPanel>
                                                 <Border BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,2" Margin="0,0,0,15" Padding="0,15,0,0">
                                                     <StackPanel Orientation="Horizontal">
@@ -138,6 +138,11 @@
                                                 <TextBlock Text="{Binding Content}" FontSize="28" TextWrapping="Wrap" Foreground="{DynamicResource TextColor}"/>
                                             </StackPanel>
                                         </Border>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding Content}" Value="">
+                                                <Setter TargetName="HomeworkCard" Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -162,6 +167,10 @@
                                         <ComboBoxItem Content="物理"/>
                                         <ComboBoxItem Content="化学"/>
                                         <ComboBoxItem Content="生物"/>
+                                        <ComboBoxItem Content="历史"/>
+                                        <ComboBoxItem Content="政治"/>
+                                        <ComboBoxItem Content="地理"/>
+                                        <ComboBoxItem Content="其他"/>
                                     </ComboBox>
                                 </StackPanel>
 
@@ -203,12 +212,12 @@
                                             <ItemsControl x:Name="HomeworkPreview" ItemsSource="{Binding HomeworkItems}">
                                                 <ItemsControl.ItemsPanel>
                                                     <ItemsPanelTemplate>
-                                                        <WrapPanel Orientation="Horizontal" ItemWidth="240"/>
+                                                        <WrapPanel Orientation="Horizontal"/>
                                                     </ItemsPanelTemplate>
                                                 </ItemsControl.ItemsPanel>
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
-                                                        <Border Style="{DynamicResource CardStyle}" Width="240">
+                                                        <Border x:Name="PreviewCard" Style="{DynamicResource CardStyle}" Width="240">
                                                             <StackPanel>
                                                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
                                                                     <TextBlock Text="{Binding Icon}" FontSize="24" Margin="0,0,12,0" Foreground="{DynamicResource TextColor}"/>
@@ -217,6 +226,11 @@
                                                                 <TextBlock Text="{Binding Content}" FontSize="25" TextWrapping="Wrap" Foreground="{DynamicResource TextColor}"/>
                                                             </StackPanel>
                                                         </Border>
+                                                        <DataTemplate.Triggers>
+                                                            <DataTrigger Binding="{Binding Content}" Value="">
+                                                                <Setter TargetName="PreviewCard" Property="Visibility" Value="Collapsed"/>
+                                                            </DataTrigger>
+                                                        </DataTemplate.Triggers>
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
                                             </ItemsControl>
@@ -233,7 +247,7 @@
         <!-- 底部状态栏 -->
         <Border Height="30" VerticalAlignment="Bottom" Background="{DynamicResource PanelBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,1,0,0">
             <Grid x:Name="Footer">
-                <TextBlock x:Name="FooterText" Text="DCP每日委托面板 ZFTONY | 版本 1.0.0" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource SecondaryTextColor}"/>
+                <TextBlock x:Name="FooterText" Text="DCP每日作业面板 ZFTONY | 版本 1.0.0" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource SecondaryTextColor}"/>
             </Grid>
         </Border>
     </Grid>

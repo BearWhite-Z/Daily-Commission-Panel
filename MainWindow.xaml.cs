@@ -266,7 +266,7 @@ namespace DailyCommissionPanel
                     ModeToggleButton.Content = "布置作业";
                     
                     // 更新底部文本
-                    FooterText.Text = "DCP每日委托面板 ZFTONY | 版本 1.0.0";
+                    FooterText.Text = "DCP每日作业面板 ZFTONY | 版本 1.0.0";
                 }
 
                 // 开始淡出动画
@@ -472,7 +472,7 @@ namespace DailyCommissionPanel
 
                     // 创建作业项列表
                     List<HomeworkItem> items = new List<HomeworkItem>();
-                    string[] subjects = { "语文", "数学", "英语", "物理", "化学", "生物" };
+                    string[] subjects = { "语文", "数学", "英语", "物理", "化学", "生物", "历史", "政治", "地理", "其他" };
 
                     foreach (string subject in subjects)
                     {
@@ -498,7 +498,7 @@ namespace DailyCommissionPanel
         private void InitializeEmptyHomeworkList()
         {
             List<HomeworkItem> items = new List<HomeworkItem>();
-            string[] subjects = { "语文", "数学", "英语", "物理", "化学", "生物" };
+            string[] subjects = { "语文", "数学", "英语", "物理", "化学", "生物", "历史", "政治", "地理", "其他" };
 
             foreach (string subject in subjects)
             {
@@ -897,6 +897,22 @@ namespace DailyCommissionPanel
                 case "生物":
                     Icon = "🧬";
                     SubjectColor = new SolidColorBrush(Color.FromRgb(46, 204, 113));
+                    break;
+                case "历史":
+                    Icon = "⏳";
+                    SubjectColor = new SolidColorBrush(Color.FromRgb(184, 134, 11));
+                    break;
+                case "政治":
+                    Icon = "📜";
+                    SubjectColor = new SolidColorBrush(Color.FromRgb(220, 53, 69));
+                    break;
+                case "地理":
+                    Icon = "🌍";
+                    SubjectColor = new SolidColorBrush(Color.FromRgb(25, 135, 84));
+                    break;
+                case "其他":
+                    Icon = "📚";
+                    SubjectColor = new SolidColorBrush(Color.FromRgb(127, 140, 141));
                     break;
                 default:
                     Icon = "📚";
