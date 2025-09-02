@@ -128,26 +128,6 @@ namespace DailyCommissionPanel
             }
         }
 
-        private void FullScreenBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (WindowStyle == WindowStyle.None)
-            {
-                // 退出全屏模式
-                WindowStyle = WindowStyle.SingleBorderWindow;
-                WindowState = WindowState.Normal;
-                ResizeMode = ResizeMode.CanResize;
-                FullScreenBtn.Content = "□";
-            }
-            else
-            {
-                // 进入全屏模式
-                WindowStyle = WindowStyle.None;
-                WindowState = WindowState.Maximized;
-                ResizeMode = ResizeMode.NoResize;
-                FullScreenBtn.Content = "◻";
-            }
-        }
-
         private void Timer_Tick(object? sender, EventArgs e)
         {
             UpdateTime();
