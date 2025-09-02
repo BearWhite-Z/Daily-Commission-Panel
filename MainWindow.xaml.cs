@@ -128,26 +128,6 @@ namespace DailyCommissionPanel
             }
         }
 
-        private void FullScreenBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (WindowStyle == WindowStyle.None)
-            {
-                // 退出全屏模式
-                WindowStyle = WindowStyle.SingleBorderWindow;
-                WindowState = WindowState.Normal;
-                ResizeMode = ResizeMode.CanResize;
-                FullScreenBtn.Content = "□";
-            }
-            else
-            {
-                // 进入全屏模式
-                WindowStyle = WindowStyle.None;
-                WindowState = WindowState.Maximized;
-                ResizeMode = ResizeMode.NoResize;
-                FullScreenBtn.Content = "◻";
-            }
-        }
-
         private void Timer_Tick(object? sender, EventArgs e)
         {
             UpdateTime();
@@ -303,12 +283,14 @@ namespace DailyCommissionPanel
             if (isDarkMode)
             {
                 Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Themes/DarkTheme.xaml", UriKind.Relative) });
-                ThemeToggle.Content = new TextBlock() { Text = "☀️", FontSize = 18 };
+                Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri("Themes/LightTheme.xaml", UriKind.Relative) });
+                ThemeToggle.Content = "☀️";
             }
             else
             {
                 Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Themes/LightTheme.xaml", UriKind.Relative) });
-                ThemeToggle.Content = new TextBlock() { Text = "🌙", FontSize = 18 };
+                Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri("Themes/DarkTheme.xaml", UriKind.Relative) });
+                ThemeToggle.Content = "🌙" ;
             }
         }
 
