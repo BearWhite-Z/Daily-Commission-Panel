@@ -283,12 +283,14 @@ namespace DailyCommissionPanel
             if (isDarkMode)
             {
                 Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Themes/DarkTheme.xaml", UriKind.Relative) });
-                ThemeToggle.Content = new TextBlock() { Text = "☀️", FontSize = 18 };
+                Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri("Themes/LightTheme.xaml", UriKind.Relative) });
+                ThemeToggle.Content = "☀️";
             }
             else
             {
                 Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Themes/LightTheme.xaml", UriKind.Relative) });
-                ThemeToggle.Content = new TextBlock() { Text = "🌙", FontSize = 18 };
+                Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri("Themes/DarkTheme.xaml", UriKind.Relative) });
+                ThemeToggle.Content = "🌙" ;
             }
         }
 

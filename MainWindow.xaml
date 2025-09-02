@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:DailyCommissionPanel"
         mc:Ignorable="d"
         Title="DCP每日作业面板"
+        MinHeight="360"
+        MinWidth="850"
         Background="#FFFFFF"
         WindowStyle="SingleBorderWindow"
         AllowsTransparency="False"
@@ -72,8 +74,8 @@
                 <!-- 右侧按钮 -->
                 <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,30,0">
                     <Button x:Name="ModeToggleButton" Style="{DynamicResource NavButtonStyle}" Click="ModeToggleButton_Click" Content="布置作业" Margin="0,0,8,0" Background="#FF7EABE0"/>
-                    <Button x:Name="ThemeToggle" Style="{DynamicResource ThemeToggleButtonStyle}" Click="ThemeToggle_Click" Content="☀" FontFamily="Segoe UI Symbol"/>
-                    <Button x:Name="SettingsBtn" Content="⚙" Width="40" Height="40" Background="Transparent" BorderThickness="0" Click="SettingsBtn_Click" Foreground="{DynamicResource TextColor}" FontSize="16" FontFamily="Segoe UI Symbol" Padding="0" ToolTip="设置"/>
+                    <Button x:Name="ThemeToggle" FontSize="24" Style="{DynamicResource ThemeToggleButtonStyle}" Click="ThemeToggle_Click" Content="☀" FontFamily="Segoe UI Symbol" ToolTip="主题"/>
+                    <Button x:Name="SettingsBtn" FontSize="24" Style="{DynamicResource ThemeToggleButtonStyle}" Click="SettingsBtn_Click" Content="⚙" FontFamily="Segoe UI Symbol" ToolTip="设置"/>
                 </StackPanel>
             </Grid>
         </Border>
